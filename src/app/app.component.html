@@ -1,0 +1,37 @@
+<span *ngIf="title; else noTitle">*ngIf</span>
+<ng-template #noTitle> 123</ng-template>
+<div>
+  {{ title | uppercase }}
+</div>
+<h4 #dir>-------指令----------</h4>
+
+<div
+  style="color: blueviolet"
+  [ngStyle]="{ backgroud: directiveStyleOrClass ? 'red' : 'green' }"
+  [ngClass]="{ 'border-directive': directiveStyleOrClass ? true : false }"
+>
+  加上普通样式style.clor，ngStyle.bg，ngClass.border
+</div>
+<app-child
+  [tochild]="title"
+  [ngStyle]="{ background: title == 'debugger' ? 'red' : 'blue' }"
+  style="color: burlywood"
+  titleIn="slotOffset"
+  (childEmit)="handleEvent($event)"
+></app-child>
+<ng-container *ngTemplateOutlet="tem1; context: myContext"></ng-container>
+
+<span [textContent]="'Hello ' + title"></span>
+
+<p back-color="blue" (dirEvent)="handleEvent($event)"></p>
+<p style="color: goldenrod">----------本模块子组件--------</p>
+<!-- <app-card>
+  <p class="in">主视图投影进来的段落1</p>
+  <p id="in2">主视图投影进来的段落2</p>
+  <p>主视图投影进来的段落3</p>
+</app-card> -->
+
+<ng-template #tem1 let-name>
+  <p>被嵌入的视图; 上下文:{{ name }}</p>
+</ng-template>
+<router-outlet></router-outlet>
